@@ -5,7 +5,7 @@
 
 CREATE TABLE IF NOT EXISTS gameSale (
     Rank                        INTEGER     PRIMARY KEY AUTOINCREMENT,
-    Name                        TEXT        DEFAULT '',
+    Name                        TEXT        NOT NULL,
     Platform                    TEXT        DEFAULT '',
     Year                        INTEGER     CHECK (Year > 0),
     Genre                       TEXT        DEFAULT '',
