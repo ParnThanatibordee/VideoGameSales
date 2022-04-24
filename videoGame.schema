@@ -5,14 +5,14 @@
 
 CREATE TABLE IF NOT EXISTS gameSale (
     Rank                        INTEGER     PRIMARY KEY AUTOINCREMENT,
-    Name                        TEXT        UNIQUE,
+    Name                        TEXT        DEFAULT '',
     Platform                    TEXT        DEFAULT '',
     Year                        INTEGER     CHECK (Year > 0),
     Genre                       TEXT        DEFAULT '',
     Publisher                   TEXT        DEFAULT '',
-    NA_Sales (in millions)      REAL        DEFAULT 0,
-    EU_Sales (in millions)      REAL        DEFAULT 0,
-    JP_Sales (in millions)      REAL        DEFAULT 0,
-    Other_Sales (in millions)   REAL        DEFAULT 0,
-    Global_Sales (in millions)  REAL        DEFAULT 0
+    NA_Sales_in_millions        REAL        DEFAULT 0,
+    EU_Sales_in_millions        REAL        DEFAULT 0,
+    JP_Sales_in_millions        REAL        DEFAULT 0,
+    Other_Sales_in_millions     REAL        DEFAULT 0,
+    Global_Sales_in_millions    REAL        DEFAULT 0
 );
