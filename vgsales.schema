@@ -1,15 +1,19 @@
 -- Schema for video game sale database
 -- using SQLite data types.
--- To create a database named "videoGame.db" with this schema use:
--- sqlite3 videoGame.db < videoGame.schema
+-- To create a database named "vgsales.db" with this schema use:
+-- sqlite3 vgsales.db < vgsales.schema
 
-CREATE TABLE IF NOT EXISTS gameSale (
-    Rank                        INTEGER     PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS video_game (
+    GameID                      INTEGER     PRIMARY KEY AUTOINCREMENT,
     Name                        TEXT        NOT NULL,
     Platform                    TEXT        DEFAULT '',
-    Year                        INTEGER     CHECK (Year > 0),
+    Year                        INTEGER     DEFAULT 0,
     Genre                       TEXT        DEFAULT '',
-    Publisher                   TEXT        DEFAULT '',
+    Publisher                   TEXT        DEFAULT ''
+);
+
+CREATE TABLE IF NOT EXISTS sales (
+    GameID                      INTEGER     PRIMARY KEY AUTOINCREMENT,
     NA_Sales_in_millions        REAL        DEFAULT 0,
     EU_Sales_in_millions        REAL        DEFAULT 0,
     JP_Sales_in_millions        REAL        DEFAULT 0,
