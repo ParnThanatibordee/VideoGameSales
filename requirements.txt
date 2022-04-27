@@ -1,0 +1,6 @@
+pip~=21.2.4
+cryptography~=35.0.0
+py~=1.10.0
+tornado~=6.1
+setuptools~=56.0.0
+SQLAlchemy~=1.4.36
