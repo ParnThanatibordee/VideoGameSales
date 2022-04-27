@@ -14,6 +14,9 @@ class VideoGame(Base):
     Genre = Column(TEXT)
     Publisher = Column(TEXT)
 
+    def __repr__(self):
+        return f"VideoGame({self.GameID}, {self.Name}, {self.Platform}, {self.Year}, {self.Genre}, {self.Publisher})"
+
 
 class Sale(Base):
     __tablename__ = "sales"
@@ -23,3 +26,8 @@ class Sale(Base):
     JP_Sales_in_millions = Column(REAL)
     Other_Sales_in_millions = Column(REAL)
     Global_Sales_in_millions = Column(REAL)
+
+    def __repr__(self):
+        return f"Sale({self.GameID}, {self.NA_Sales_in_millions}, {self.EU_Sales_in_millions}" \
+               f", {self.JP_Sales_in_millions}, {self.Other_Sales_in_millions}" \
+               f", {self.Global_Sales_in_millions})"
