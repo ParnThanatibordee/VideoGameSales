@@ -42,6 +42,7 @@ class GameSaleUI(tk.Tk):
 
         # search/update
         self.search_field = tk.Entry(self, width=20, textvariable=self.search_GameID)
+        self.search_field.insert(0, " >GameID")
         convert_button = tk.Button(self, text='search/update', command=self.search_window)
         self.search_field.grid(row=0, column=0, padx=5, pady=5)
         convert_button.grid(row=0, column=1, padx=5, pady=5)
