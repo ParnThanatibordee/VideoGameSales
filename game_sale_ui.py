@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, RIGHT, BOTTOM, Y, X, NO, CENTER
 
 from dao.sales_dao import SaleDao
 from dao.video_game_dao import VideoGameDao
@@ -8,11 +8,11 @@ from model.update_models import UpdateVideoGame, UpdateSale
 
 
 class GameSaleUI(tk.Tk):
-    def __init__(self, game_sale: GameSale):
+    def __init__(self, game_sale: GameSale, factory_name):
         super().__init__()
         self.game_sale = game_sale
         self.title("Video Game Sales")
-        self.game_sale.set_factory('video_game')
+        self.game_sale.set_factory(factory_name)
 
         self.search_GameID = tk.StringVar()
         self.update_Name = tk.StringVar()
@@ -47,9 +47,85 @@ class GameSaleUI(tk.Tk):
         convert_button.grid(row=0, column=1, padx=5, pady=5)
 
         # display table
+        table_frame = tk.Frame(self)
+        table_frame.grid(row=1, column=0, padx=5, pady=5)
+
+        # scrollbar
+        table_scroll = tk.Scrollbar(table_frame)
+        table_scroll.pack(side=RIGHT, fill=Y)
+
+        table_scroll = tk.Scrollbar(table_frame, orient='horizontal')
+        table_scroll.pack(side=BOTTOM, fill=X)
+
+        my_table = ttk.Treeview(table_frame, yscrollcommand=table_scroll.set, xscrollcommand=table_scroll.set)
+
+        my_table.pack()
+
+        table_scroll.config(command=my_table.yview)
+        table_scroll.config(command=my_table.xview)
+
+        # define column
+        if isinstance(self.game_sale.current_factory, VideoGameDao):
+            my_table['columns'] = ('GameID', 'Name', 'Platform', 'Year', 'Genre', 'Publisher')
+
+            # format our column
+            my_table.column("#0", width=0, stretch=NO)
+            my_table.column("GameID", anchor=CENTER, width=80)
+            my_table.column("Name", anchor=CENTER, width=80)
+            my_table.column("Platform", anchor=CENTER, width=80)
+            my_table.column("Year", anchor=CENTER, width=80)
+            my_table.column("Genre", anchor=CENTER, width=80)
+            my_table.column("Publisher", anchor=CENTER, width=80)
+
+            # Create Headings
+            my_table.heading("#0", text="", anchor=CENTER)
+            my_table.heading("GameID", text="GameID", anchor=CENTER)
+            my_table.heading("Name", text="Name", anchor=CENTER)
+            my_table.heading("Platform", text="Platform", anchor=CENTER)
+            my_table.heading("Year", text="Year", anchor=CENTER)
+            my_table.heading("Genre", text="Genre", anchor=CENTER)
+            my_table.heading("Publisher", text="Publisher", anchor=CENTER)
+
+            # add data
+            game_records = self.game_sale.get_all()
+            for i, record in enumerate(game_records):
+                my_table.insert(parent='', index='end', iid=i, text='',
+                                values=(f'{record.GameID}', f'{record.Name}', f'{record.Platform}', f'{record.Year}',
+                                        f'{record.Genre}', f'{record.Publisher}'))
+        elif isinstance(self.game_sale.current_factory, SaleDao):
+            my_table['columns'] = ('GameID', 'NA Sales', 'EU Sales', 'JP Sales', 'Other Sales', 'Global Sales')
+
+            # format our column
+            my_table.column("#0", width=0, stretch=NO)
+            my_table.column("GameID", anchor=CENTER, width=80)
+            my_table.column("NA Sales", anchor=CENTER, width=80)
+            my_table.column("EU Sales", anchor=CENTER, width=80)
+            my_table.column("JP Sales", anchor=CENTER, width=80)
+            my_table.column("Other Sales", anchor=CENTER, width=80)
+            my_table.column("Global Sales", anchor=CENTER, width=80)
+
+            # Create Headings
+            my_table.heading("#0", text="", anchor=CENTER)
+            my_table.heading("GameID", text="GameID", anchor=CENTER)
+            my_table.heading("NA Sales", text="NA Sales", anchor=CENTER)
+            my_table.heading("EU Sales", text="EU Sales", anchor=CENTER)
+            my_table.heading("JP Sales", text="JP Sales", anchor=CENTER)
+            my_table.heading("Other Sales", text="Other Sales", anchor=CENTER)
+            my_table.heading("Global Sales", text="Global Sales", anchor=CENTER)
+
+            # add data
+            game_records = self.game_sale.get_all()
+            for i, record in enumerate(game_records):
+                my_table.insert(parent='', index='end', iid=i, text='',
+                                values=(f'{record.GameID}', f'{record.NA_Sales_in_millions}',
+                                        f'{record.EU_Sales_in_millions}',
+                                        f'{record.JP_Sales_in_millions}',
+                                        f'{record.Other_Sales_in_millions}',
+                                        f'{record.Global_Sales_in_millions}'))
 
     def set_table(self, table):
-        self.game_sale.set_factory(table)
+        self.destroy()
+        self.__init__(self.game_sale, table)
 
     def search_window(self):
         if self.search_field.get() != "":
@@ -159,6 +235,11 @@ class GameSaleUI(tk.Tk):
         self.game_sale.current_factory.update(game_id, update_model)
 
         self.top.destroy()
+        self.destroy()
+        if isinstance(self.game_sale.current_factory, VideoGameDao):
+            self.__init__(self.game_sale, 'video_game')
+        elif isinstance(self.game_sale.current_factory, SaleDao):
+            self.__init__(self.game_sale, 'sales')
         self.search_window()
 
     def run(self):
