@@ -22,8 +22,8 @@ class SaleDao:
                 this_sale.EU_Sales_in_millions = sale.EU_Sales_in_millions
             if sale.JP_Sales_in_millions:
                 this_sale.JP_Sales_in_millions = sale.JP_Sales_in_millions
-            if sale.JP_Sales_in_millions:
-                this_sale.JP_Sales_in_millions = sale.JP_Sales_in_millions
+            if sale.Other_Sales_in_millions:
+                this_sale.Other_Sales_in_millions = sale.Other_Sales_in_millions
             if sale.Global_Sales_in_millions:
                 this_sale.Global_Sales_in_millions = sale.Global_Sales_in_millions
             self.session.commit()

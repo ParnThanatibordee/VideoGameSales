@@ -14,8 +14,10 @@ class VideoGameDao:
 
     def update(self, GameID, game: UpdateVideoGame):
         video_game = self.get(GameID)
+        print('*')
 
         try:
+            print(game.Name)
             if game.Name:
                 video_game.Name = game.Name
             if game.Platform:

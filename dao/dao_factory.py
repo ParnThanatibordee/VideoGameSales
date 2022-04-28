@@ -17,6 +17,3 @@ class DaoFactory:
         if not factory:
             raise ValueError("Doesn't have" + factory_name)
         return factory(self.session)
-
-    def search(self):
-        pass
