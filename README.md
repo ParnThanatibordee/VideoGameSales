@@ -1,6 +1,6 @@
 # VideoGameSales
 
-### RESTful web service design
+### Web Service API
 [Google docs](https://docs.google.com/document/d/1wVD14oyxRpuizfZ0eygW_ZdIu9lC_etwJ7h18_kag_8/edit?usp=sharing)
 
 ### Installation Instruction
