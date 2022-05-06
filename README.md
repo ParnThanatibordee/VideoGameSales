@@ -1,5 +1,8 @@
 # VideoGameSales
 
+### RESTful web service design
+[Google docs](https://docs.google.com/document/d/1wVD14oyxRpuizfZ0eygW_ZdIu9lC_etwJ7h18_kag_8/edit?usp=sharing)
+
 ### Installation Instruction
 
 1. Clone the respository to your machine or PC.
